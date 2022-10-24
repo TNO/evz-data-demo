@@ -25,7 +25,7 @@ function App() {
   const uploadRoutekaartComponent = <UploadRoutekaartComponent routekaart={routekaart} setRoutekaart={setRoutekaart} />
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/evz-data-demo">
       <Routes>
         <Route path="/" element={<Layout uploadRoutekaartComponent={uploadRoutekaartComponent} />}>
 
