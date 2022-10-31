@@ -14,9 +14,10 @@ import {
 } from "react-router-dom";
 import { UploadRoutekaartComponent } from "./components/UploadRoutekaartComponent";
 import { Routekaart } from "./interfaces/Routekaart";
-import { ComparisonPage } from "./pages/ComparisonPage";
+import { LocatieComparisonPage } from "./pages/LocatieComparisonPage";
 import { FactsheetPage } from "./pages/FactsheetPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { MaatregelComparisonPage } from "./pages/MaatregelComparisonPage";
 
 function App() {
 
@@ -34,7 +35,8 @@ function App() {
               (
                 <>
                   <Route index element={<FactsheetPage routekaart={routekaart} />} />
-                  <Route path="/vergelijk" element={<ComparisonPage routekaart={routekaart} />} />
+                  <Route path="/vergelijk-locaties" element={<LocatieComparisonPage locaties={routekaart.locaties} />} />
+                  <Route path="/vergelijk-maatregelen" element={<MaatregelComparisonPage maatregelen={routekaart.locaties[0].maatregelen} />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </>
               )
@@ -77,18 +79,14 @@ function Layout({ uploadRoutekaartComponent }: LayoutProps) {
   )
 }
 
-interface UploadRoutekaartProps {
-  routekaart?: Routekaart
-  setRoutekaart: (routekaart: Routekaart) => void
-}
-
 export function NavButtons() {
 
   type Link = { name: string, route: string, disabledWithoutRoutekaart?: boolean }
   const links: Link[] = [
-    { name: "Factsheet", route: "/", disabledWithoutRoutekaart: true },
+    { name: "Factsheet", route: "/" },
     { name: "Update routekaart", route: "/edit" },
-    { name: "Vergelijk uw routekaart", route: "vergelijk", disabledWithoutRoutekaart: true },
+    { name: "Vergelijk uw locaties", route: "vergelijk-locaties" },
+    { name: "Vergelijk maatregelen", route: "vergelijk-maatregelen" },
   ]
   const [currentLink, setCurrentLink] = React.useState(links[0])
 
