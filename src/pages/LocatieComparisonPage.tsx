@@ -16,32 +16,35 @@ export function LocatieComparisonPage({ locaties }: Props) {
   const [locatieFilter, setLocatieFilter] = useState<(locatie: Locatie) => boolean>(() => () => true)
   const [anoniemeLocatieFilter, setAnoniemeLocatieFilter] = useState<(anoniemeLocatie: AnoniemeLocatie) => boolean>(() => () => true)
 
-  const filteredLocaties = locaties//.filter(locatieFilter)
+  const filteredLocaties = locaties.filter(locatieFilter)
   const filteredAnoniemeLocaties = anoniemeLocaties.filter(anoniemeLocatieFilter)
 
   const bubbleDatas: BubbleData[] = [
     {
       name: "eigen locaties",
       color: "#000000",
+      opacity: 1,
       dataXYZ: filteredLocaties.map(locatie => (
         {
-          x: locatie.aardgas_equivalent_m3,
-          y: locatie.bvo_m2,
-          z: locatie.bvo_m2,
+          x: locatie.bvo_m2,
+          y: locatie.aardgas_equivalent_m3,
+          z: 1,
         }
       ))
     },
-    // {
-    //   name: "andere locaties",
-    //   color: "#ff0000",
-    //   dataXYZ: filteredAnoniemeLocaties.map(anoniemeLocatie => (
-    //     {
-    //       x: anoniemeLocatie.aardgasEqM3,
-    //       y: anoniemeLocatie.bvoM2,
-    //       z: anoniemeLocatie.bvoM2,
-    //     }
-    //   ))
-    // }
+    {
+      name: "andere locaties",
+      color: "#ff0000",
+      opacity: 0.1,
+      dataXYZ: filteredAnoniemeLocaties.map(anoniemeLocatie => (
+        {
+          x: anoniemeLocatie.bvoM2,
+          y: anoniemeLocatie.aardgasEqM3,
+          // y: ,
+          z: 1,
+        }
+      ))
+    }
   ]
   return (
     <div className="flex flex-col">

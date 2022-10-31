@@ -11,12 +11,13 @@ interface Props {
 export function LocatieFilter({ setLocatieFilter, setAnoniemeLocatieFilter }: Props) {
 
   const MIN_BVO = 0
-  const MAX_BVO = 1_000
+  const MAX_BVO = 100_000
   const [bvoRange, setBvoRange] = useState<number[]>([MIN_BVO, MAX_BVO]);
 
   useEffect( () => {
     setLocatieFilter( () => (locatie: Locatie) => {
       const isWithinRange = (bvoRange[0] <= locatie.bvo_m2) && (locatie.bvo_m2 <= bvoRange[1])
+      console.log(isWithinRange, locatie.bvo_m2 )
       return isWithinRange
     })
 
@@ -25,6 +26,8 @@ export function LocatieFilter({ setLocatieFilter, setAnoniemeLocatieFilter }: Pr
       return isWithinRange
     })
   }, [bvoRange])
+
+  
   return (
     <div>
       <>
@@ -32,6 +35,7 @@ export function LocatieFilter({ setLocatieFilter, setAnoniemeLocatieFilter }: Pr
           <FormControlLabel checked control={<Checkbox />} label="GGZ" />
           <FormControlLabel checked control={<Checkbox />} label="V&V" />
         </FormGroup>
+      <div> filter op bruto vloeroppervlak </div>
         <DebouncedSlider
           min={MIN_BVO}
           max={MAX_BVO}
